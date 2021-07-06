@@ -9,9 +9,10 @@ const LOCAL_STORAGE_KEY = "ToDoList"
 function App() {
   const [todos, setTodos] = useState([]);
   const [completed,setCompleted] = useState(false);
+  const [order,setOrder] = useState(0);
 
   useEffect(()=>{
-    const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    //const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
   }, []);
 
@@ -24,8 +25,18 @@ function App() {
     setTodos([todo, ...todos]);
   }
 
-  const editTodo = (todo) => {
-    setTodos([todo, ...todos]);
+  const editTask = (todoEdited,e) => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === todoEdited.id) {
+          return {
+            ...todo,
+            task: todoEdited.task
+          };
+        }
+        return todo;
+      })
+    );
   }
 
   const editState = (id) => {
@@ -60,7 +71,10 @@ function App() {
         addTodo={addTodo} />
         <TodoList 
         todos={todos} 
+        order={order}
+        setOrder={setOrder}
         completed={completed}
+        editTask={editTask}
         removeTodo={removeTodo}
         editState={editState}/>
         <h5>Hide completed</h5><input onClick={changeCompleted} type="checkbox" />
