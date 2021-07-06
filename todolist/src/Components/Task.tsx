@@ -7,7 +7,6 @@ function Task({ todo,editTask,editState,removeTodo } : {todo:any,removeTodo:any,
 
 
   const handleState = (e:any) => {
-    console.log(todo.id);
     editState(todo.id);
   };
 
@@ -27,7 +26,7 @@ function Task({ todo,editTask,editState,removeTodo } : {todo:any,removeTodo:any,
     
   }
 
-
+  
   return (
     <div style={{display: "flex",
     backgroundColor: "white" }}>

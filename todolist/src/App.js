@@ -4,25 +4,33 @@ import TodoList from "./Components/TodoList";
 import background from "./backgroundImage.jpg";
 import "./App.css";
 
-const LOCAL_STORAGE_KEY = "ToDoList"
+const LOCAL_STORAGE_KEY = "ToDoList";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [todosSorted,setSortedTodos] = useState([]);
   const [completed,setCompleted] = useState(false);
   const [order,setOrder] = useState(0);
 
-  useEffect(()=>{
-    //const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+  const ascendingComparator = (a, b) => (a.task > b.task) ? 1: -1;
+  const descendingComparator = (a,b) => (a.task > b.task) ? -1 : 1;
 
+  useEffect(()=>{
+    const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if(storageTodos){
+      setTodos(storageTodos);
+      setSortedTodos(storageTodos);
+    }
   }, []);
 
 
   useEffect(()=>{
     localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(todos));
-  }, [todos]);
+  }, [todos,todosSorted]);
 
   const addTodo = (todo) => {
-    setTodos([todo, ...todos]);
+    setTodos([todo, ...todos]); 
+    setOrder(0);
   }
 
   const editTask = (todoEdited,e) => {
@@ -37,6 +45,7 @@ function App() {
         return todo;
       })
     );
+    setOrder(0);
   }
 
   const editState = (id) => {
@@ -53,12 +62,23 @@ function App() {
     );
   }
 
-  const removeTodo = (id) => {
+  const editSort = (e) => {
+    console.log("AAAAAAAAAA");
+    if (order == 0) {
+        setSortedTodos([...todos].sort(ascendingComparator));   
+    } else if(order == 1){
+       setSortedTodos([...todos].sort(descendingComparator)); 
+    }
+  }
+
+  const removeTodo = async (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
+    setOrder(0);
   }
 
   const changeCompleted = (e) => {
     setCompleted(completed?false:true);
+    setOrder(0);
   }
 
   return (
@@ -71,12 +91,14 @@ function App() {
         addTodo={addTodo} />
         <TodoList 
         todos={todos} 
+        todosSorted={todosSorted}
         order={order}
         setOrder={setOrder}
         completed={completed}
         editTask={editTask}
         removeTodo={removeTodo}
-        editState={editState}/>
+        editState={editState}
+        editSort={editSort}/>
         <h5>Hide completed</h5><input onClick={changeCompleted} type="checkbox" />
       </header>
     </div>
