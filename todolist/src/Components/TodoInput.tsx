@@ -15,7 +15,7 @@ function TodoInput({ addTodo } : { addTodo: any}) {
   const handleSubmit =  (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if(todo.task !== ""){
-      addTodo({...todo, id: uuidv4() });
+      addTodo({...todo, id: uuidv4()});
       setTodo({...todo, task:""});
     }
   }
