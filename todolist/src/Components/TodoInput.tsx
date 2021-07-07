@@ -22,12 +22,12 @@ function TodoInput({ addTodo } : { addTodo: any}) {
 
   return (
     <form className="todo-input" onSubmit={handleSubmit}>
-      <input
+      <input className="input-form"
       name="task"
       type="task"
       value = {todo.task}
       onChange={handleInput}/>
-      <button type="submit">Submit</button>
+      <button className="submit-button" type="submit">Submit</button>
     </form>
   );
 }

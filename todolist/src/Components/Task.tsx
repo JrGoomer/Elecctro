@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Checkbox, Button, ListItem, Typography } from "@material-ui/core";
 
 function Task({ todo,editTask,editState,removeTodo } : {todo:any,removeTodo:any,editState:any,editTask:any}) {
 
@@ -28,8 +29,8 @@ function Task({ todo,editTask,editState,removeTodo } : {todo:any,removeTodo:any,
 
   
   return (
-    <div style={{display: "flex",
-    backgroundColor: "white" }}>
+    <div className="task-div">
+      <div className="checkbox-text-task">
     <input onClick={handleState} type="checkbox" defaultChecked={todo.completed}/>
     <li style={{color: "black"}}>
       {!edit?
@@ -37,9 +38,12 @@ function Task({ todo,editTask,editState,removeTodo } : {todo:any,removeTodo:any,
       <input type="text" defaultValue={todo.task}
       onKeyDown={handleKeyPress}/>
       }
-      </li>
-      <button onClick={handleEdit}>edit</button>
-      <button onClick={handleRemove}>remove</button>
+    </li>
+    </div>
+    <div className="checkbox-text-task2">
+      <button className="task-button" color="primary" onClick={handleEdit}>edit</button>
+      <button className="task-button" color="primary" onClick={handleRemove}>remove</button>
+    </div>
     </div>
   );
 }

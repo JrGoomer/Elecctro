@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import TodoInput from "./Components/TodoInput";
 import TodoList from "./Components/TodoList";
-import background from "./backgroundImage.jpg";
+import background from "./ea9PB3H.png";
 import "./App.css";
 
 const LOCAL_STORAGE_KEY = "ToDoList";
@@ -86,10 +86,11 @@ function App() {
       backgroundImage: `url(${background})`,
       }}>
       <header className="App-header">
-        <span><p>Todo List</p></span>
+        <span classNAme="header-span"><p>Todo List</p></span>
+        <div >
         <TodoInput className="Input" 
         addTodo={addTodo} />
-        <TodoList 
+        <TodoList
         todos={todos} 
         todosSorted={todosSorted}
         order={order}
@@ -99,7 +100,10 @@ function App() {
         removeTodo={removeTodo}
         editState={editState}
         editSort={editSort}/>
+        </div>
+        <div className="hide-checkbox">
         <h5>Hide completed</h5><input onClick={changeCompleted} type="checkbox" />
+        </div>
       </header>
     </div>
   );

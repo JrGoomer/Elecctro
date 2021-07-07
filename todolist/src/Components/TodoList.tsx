@@ -23,13 +23,11 @@ function TodoList({todos,editTask, editState,removeTodo,setOrder,todosSorted,edi
   };
 
 
-  console.log([...todos].filter(task => task.completed).sort(descendingComparator));
   return (
     <ul style={{
       listStyleType: "none"
     }}>
-      <button type="button" onClick={handleOrder}>Tasks</button>
-      <h1>{order}</h1>
+      <button className="tasks-button" type="button" onClick={handleOrder}>Tasks</button>
       {order!=0 ?(
         todosSorted.map((todo: { id: any; }) => (
             <Task
